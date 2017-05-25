@@ -11,7 +11,8 @@ var host = process.env.IP || '127.0.0.1';
 
 var collName = "muUrls"
 
-var dbUrl = process.argv[2] || "mongodb://ksjazzguitar:musashi127@ds153521.mlab.com:53521/ksj-fccbe-shortener";
+var dbUrl = process.argv[2] || "mongodb://" + process.env.DB_USER + ":" +
+              process.env.DB_PWD + "@ds153521.mlab.com:53521/ksj-fccbe-shortener";
 
 
 // start the server
