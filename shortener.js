@@ -51,7 +51,7 @@ mongo.connect(dbUrl, function(err, db) {
       if (err) throw err;
       documents.map((d) => {
         if (d.code != undefined)
-          str += "{ original_url: " + d.original_url + " code: " + d.code + " } which can be accesed at <b>" + addressStem + base62.encode(d.code) + "</b><br/><br/>";
+          str += "{ original_url: \"" + d.original_url + "\", code: " + d.code + " } which can be accesed at <b>" + addressStem + base62.encode(d.code) + "</b><br/><br/>";
         else {
           str += "{ max_code: " + d.max_code + " } (which renders to <b>" + base62.encode(d.max_code) + "</b> in our base 62 code)<br/><br/>";
         }
