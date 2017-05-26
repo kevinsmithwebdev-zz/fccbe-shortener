@@ -11,8 +11,13 @@ var host = process.env.IP || '127.0.0.1';
 
 var collName = "muUrls"
 
-var dbUrl = process.argv[2] || "mongodb://" + process.env.DB_USER + ":" +
-              process.env.DB_PWD + "@ds153521.mlab.com:53521/ksj-fccbe-shortener";
+var dbUrl = "";
+
+if (process.argv[2]=="local")
+  dbUrl = "mongodb://localhost:27017/mydb";
+else
+  dbUrl = "mongodb://" + process.env.DB_USER + ":" +
+            process.env.DB_PWD + "@ds153521.mlab.com:53521/ksj-fccbe-shortener";
 
 
 // start the server
