@@ -5,17 +5,18 @@
   "main": "shortener.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	"start": "node shortener.js"
+    "start": "node shortener.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "base62": "^1.2.0",
     "express": "^4.15.3",
+    "mongodb": "^2.2.27",
     "valid-url": "^1.0.9"
   },
   "engines": {
     "node": "^7.7.4",
-	"npm": "^4.1.2"
+    "npm": "^4.1.2"
   }
 }
