@@ -43,14 +43,17 @@ mongo.connect(dbUrl, function(err, db) {
   // list function for maint, but why not
 
   app.get('/list', function(req, res) {
-    var str = "listing database ...\n\n";
+
+    var addressStem = req.protocol + '://' + req.get('host') + "/";
+
+    var str = "listing database ...<br/><br/>";
     myDB.find().toArray(function(err, documents) {
       if (err) throw err;
       documents.map((d) => {
         if (d.code != undefined)
-          str += "{ original_url: " + d.original_url + " code: " + d.code + " = " + base62.encode(d.code) + " }\n\n";
+          str += "{ original_url: " + d.original_url + " code: " + d.code + " } which can be accesed at <b>" + addressStem + base62.encode(d.code) + "</b><br/><br/>";
         else {
-          str += "{ max_code: " + d.max_code + " = " + base62.encode(d.max_code) + " }\n\n";
+          str += "{ max_code: " + d.max_code + " } (which renders to <b>" + base62.encode(d.max_code) + "</b> in our base 62 code)<br/><br/>";
         }
       });
       res.send(str);
@@ -81,7 +84,7 @@ mongo.connect(dbUrl, function(err, db) {
           "<h4>redirects to:</h4>" +
           "<h4 style=\"color:#c00;\"><code>" + addressStem +
             "new/http://www.kevinsmithguitar.com/</code></h4>" +
-          "<h3><i>And you can access a list of all records (but that's a secret):</i></h3>" +
+          "<h3><i>And you can access a list of all DB documents (but that's a secret, don't tell anyone):</i></h3>" +
           "<h4 style=\"color:#c00;\"><code>" + addressStem +
             "list</code></h4>" +
           "<hr>" +
@@ -99,7 +102,7 @@ mongo.connect(dbUrl, function(err, db) {
 
   app.get('/new/:bigUrl(*)', function(req, res) {
 
-      var addressStem = req.protocol + '://' +req.get('host') + "/";
+      var addressStem = req.protocol + '://' + req.get('host') + "/";
       var baseUrlStr = req.protocol + '://' + req.get('host') + '/';
       var bigUrl = req.params.bigUrl;
 
@@ -131,14 +134,16 @@ mongo.connect(dbUrl, function(err, db) {
           if (docs.length > 0)
             res.redirect(docs[0].original_url);
           else
-            res.json({ error: urlCode62 + 'is not in out database'});
+            res.json({ error: urlCode62 + ' is not in out database'});
         });
     } else {
-        res.json({ error: urlCode62 + 'is not a valid tiny URL code (must be base 62 encoded)'});
+        res.json({ error: urlCode62 + ' is not a valid tiny URL code (must be base 62 encoded)'});
     }
   }); // app.get
 
 }); // mongo.connect
+
+
 
 // launch app
 app.listen(port, host, function() { console.log("shortener server is running on port " +
