@@ -4,8 +4,10 @@ var base62 = require('base62');
 var validUrl = require('valid-url');
 var mongo = require('mongodb');
 
-var port = process.env.PORT || 1337;
-var host = process.env.IP || '127.0.0.1';
+var isLocal = (process.argv[2]=="local");
+
+var port = (!isLocal)?process.env.PORT:1337;
+var host = (!isLocal)?process.env.IP:'127.0.0.1';
 
 // var addressStem = "localhost:1337/";
 
@@ -13,7 +15,7 @@ var collName = "muUrls";
 
 var dbUrl = "";
 
-if (process.argv[2]=="local")
+if (isLocal)
   dbUrl = "mongodb://localhost:27017/mydb";
 else
   dbUrl = "mongodb://test:testpwd@ds153521.mlab.com:53521/ksj-fccbe-shortener";
