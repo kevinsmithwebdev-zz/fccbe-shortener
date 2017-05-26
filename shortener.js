@@ -9,15 +9,14 @@ var host = process.env.IP || '127.0.0.1';
 
 // var addressStem = "localhost:1337/";
 
-var collName = "muUrls"
+var collName = "muUrls";
 
 var dbUrl = "";
 
 if (process.argv[2]=="local")
   dbUrl = "mongodb://localhost:27017/mydb";
 else
-  dbUrl = "mongodb://" + process.env.DB_USER + ":" +
-            process.env.DB_PWD + "@ds153521.mlab.com:53521/ksj-fccbe-shortener";
+  dbUrl = "mongodb://test:testpwd@ds153521.mlab.com:53521/ksj-fccbe-shortener";
 
 
 // start the server
