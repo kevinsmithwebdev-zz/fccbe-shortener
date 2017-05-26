@@ -9,8 +9,6 @@ var isLocal = (process.argv[2]=="local");
 var port = (!isLocal)?process.env.PORT:1337;
 var host = (!isLocal)?process.env.IP:'127.0.0.1';
 
-// var addressStem = "localhost:1337/";
-
 var collName = "muUrls";
 
 var dbUrl = "";
@@ -18,8 +16,8 @@ var dbUrl = "";
 if (isLocal)
   dbUrl = "mongodb://localhost:27017/mydb";
 else
-  dbUrl = "mongodb://test:testpwd@ds153521.mlab.com:53521/ksj-fccbe-shortener";
-
+  dbUrl = "mongodb://" + process.env.DB_USR + ":" + process.env.DB_PWD +
+            "@ds153521.mlab.com:53521/ksj-fccbe-shortener";
 
 // start the server
 
@@ -91,7 +89,7 @@ mongo.connect(dbUrl, function(err, db) {
           "<h5>Valid URLs are stored in a database with a code which " +
           "is rendered and accessed in base 62 (for maximum compactness). " +
           "For the purposes of this example, the database is starting with a high " +
-          "code number, because it looks cooler with a four digit number rather " +
+          "code number, because it looks cooler with a four digit base 62 code rather " +
           "than starting with single digits. OK, I'm vain, so sue me.</h5>";
     res.send(str);
   }); // app.get
