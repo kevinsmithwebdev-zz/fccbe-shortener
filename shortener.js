@@ -66,7 +66,7 @@ mongo.connect(dbUrl, function(err, db) {
   app.get('/', function(req, res) {
     var addressStem = req.protocol + '://' +req.get('host') + "/";
     var str =
-          "<h1>Kevin's <i>Timestamp Microservice</i></h1>" +
+          "<h1>Kevin's <i>URL Shortener Microservice</i></h1>" +
           "<h4>Made for <a href=\"https://www.freecodecamp.com\">" +
             "Free Code Camp</a>'s Back End Development Course</h4>" +
           "<h4>Made by Kevin Smith (ksjazzguitar)</h4>" +
